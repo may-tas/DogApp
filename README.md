@@ -13,6 +13,7 @@ TOT APP is a Flutter application that provides users with information about dogs
 - [Code Structure](#code-structure)
 - [Screenshots](#screenshots)
 - [API-KEY](#api-key)
+- [APK](#apk)
 
 ## Overview
 
@@ -110,11 +111,11 @@ dependencies:
     <img src="https://github.com/user-attachments/assets/6ddb543f-0785-4c53-8550-f02d6f083bb9" style="width: 150px; height: auto;">
 </div>
 
-## API-KEY: 
+## API-KEY
 - Replace the API key with your own in `AndroidManifest.xml` and `AppDelegate.swift` .
 
-
-
+## APK
+- [apk](https://github.com/may-tas/DogApp/tree/main/apk)
 
 
 
