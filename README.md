@@ -27,7 +27,7 @@ TOT APP combines two main functionalities: fetching and displaying dog informati
 - **State Management:** Employs Cubit for efficient state management.
 
 ## Folder Structure
-
+```
 lib/
 ├── cubit/
 │ ├── dog_cubit.dart
@@ -58,6 +58,7 @@ lib/
 │ ├── empty_state_widget.dart
 │ └── error_state_widget.dart
 ├── main.dart
+```
 
 ## Dependencies
 
@@ -98,3 +99,22 @@ dependencies:
 - `main.dart`: Entry point of the application.
 
 ## Screenshots
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://github.com/user-attachments/assets/aca32df7-e983-4785-94a5-a7ffaf73b567" style="width: 150px; height: auto;">
+    <img src="https://github.com/user-attachments/assets/67e530e4-7ce2-4408-9058-1a5aa3ba53ab" style="width: 150px; height: auto;">
+    <img src="https://github.com/user-attachments/assets/05a8f2bf-6f44-4d91-be14-f1ec3f1754c5" style="width: 150px; height: auto;">
+    <img src="https://github.com/user-attachments/assets/b88f873d-998d-4fa7-a3ad-5fb88e0b737c" style="width: 150px; height: auto;">
+    <img src="https://github.com/user-attachments/assets/98be7f73-5e3c-4e3e-999a-aaea11983563" style="width: 150px; height: auto;">
+    <img src="https://github.com/user-attachments/assets/e3f14fba-56ac-415f-81e7-b42ce63cb25d" style="width: 150px; height: auto;">
+    <img src="https://github.com/user-attachments/assets/6ddb543f-0785-4c53-8550-f02d6f083bb9" style="width: 150px; height: auto;">
+</div>
+
+
+
+
+
+
+
+
+
+
