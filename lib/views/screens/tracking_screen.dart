@@ -23,7 +23,26 @@ class _TrackingScreenState extends State<TrackingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Location Tracking'),
+        title: const Text(
+          'Location Tracking',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blueAccent, Colors.indigo],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        elevation: 10,
+        shadowColor: Colors.black.withAlpha((0.3 * 255).toInt()),
       ),
       body: BlocConsumer<TrackingCubit, TrackingState>(
         listener: (context, state) {
@@ -99,36 +118,61 @@ class _TrackingScreenState extends State<TrackingScreen> {
   }
 
   Widget _buildTrackingButton(BuildContext context, TrackingState state) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        backgroundColor: _isTracking ? Colors.red : Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: _isTracking
+              ? [Colors.red, Colors.redAccent]
+              : [Colors.blue, Colors.blueAccent],
         ),
-      ),
-      onPressed: () {
-        if (!_isTracking) {
-          context.read<TrackingCubit>().startTracking();
-          setState(() {
-            _isTracking = true;
-            _polylines.clear();
-            _markers.clear();
-          });
-        } else {
-          context.read<TrackingCubit>().stopTracking();
-        }
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(_isTracking ? Icons.stop : Icons.play_arrow),
-          const SizedBox(width: 8),
-          Text(
-            _isTracking ? 'Stop Tracking' : 'Start Tracking',
-            style: const TextStyle(fontSize: 18),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha((0.3 * 255).toInt()),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
         ],
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        onPressed: () {
+          if (!_isTracking) {
+            context.read<TrackingCubit>().startTracking();
+            setState(() {
+              _isTracking = true;
+              _polylines.clear();
+              _markers.clear();
+            });
+          } else {
+            context.read<TrackingCubit>().stopTracking();
+          }
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              _isTracking ? Icons.stop : Icons.play_arrow,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              _isTracking ? 'Stop Tracking' : 'Start Tracking',
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

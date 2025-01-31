@@ -4,11 +4,11 @@ import 'package:tot_app/services/dog_api_service.dart';
 import '../models/dog_model.dart';
 import '../services/database_service.dart';
 
-// Cubit
 class DogCubit extends Cubit<DogState> {
   final ApiService _apiService;
   final DatabaseService _databaseService;
   List<Dog> _allDogs = [];
+  List<Dog> _savedDogs = []; // Keep track of saved dogs
 
   DogCubit(this._apiService, this._databaseService) : super(DogInitial());
 
@@ -25,6 +25,11 @@ class DogCubit extends Cubit<DogState> {
   Future<void> saveDog(Dog dog) async {
     try {
       await _databaseService.saveDog(dog);
+      // Update saved dogs list if we're showing saved dogs
+      if (state is DogLoaded && _savedDogs.isNotEmpty) {
+        _savedDogs.add(dog);
+        emit(DogLoaded(_savedDogs));
+      }
     } catch (e) {
       emit(DogError(e.toString()));
     }
@@ -32,17 +37,28 @@ class DogCubit extends Cubit<DogState> {
 
   Future<void> deleteDog(Dog dog) async {
     try {
-      await _databaseService.deleteDog(dog.id);
+      // Store current state
+      final currentState = state;
+      if (currentState is DogLoaded) {
+        // Optimistically remove the dog from the list
+        _savedDogs = currentState.dogs.where((d) => d.id != dog.id).toList();
+        emit(DogLoaded(_savedDogs));
+
+        // Actually delete from database
+        await _databaseService.deleteDog(dog.id);
+      }
     } catch (e) {
-      emit(DogError(e.toString()));
+      // If deletion fails, revert to previous state
+      await getSavedDogs(); // Reload the actual state from database
+      emit(DogError('Failed to delete dog: ${e.toString()}'));
     }
   }
 
   Future<void> getSavedDogs() async {
     try {
       emit(DogLoading());
-      final dogs = await _databaseService.getSavedDogs();
-      emit(DogLoaded(dogs));
+      _savedDogs = await _databaseService.getSavedDogs();
+      emit(DogLoaded(_savedDogs));
     } catch (e) {
       print(e);
       emit(DogError(e.toString()));

@@ -40,7 +40,8 @@ class Dog {
           : List<String>.from(
               json['colors']), // If already a List, use it directly
       description: json['description'] as String,
-      image: json['image'] as String,
+      image:
+          "https://images.dog.ceo/breeds/retriever-golden/n02099601_4933.jpg",
     );
   }
 

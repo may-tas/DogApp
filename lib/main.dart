@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'TOT APP',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           appBarTheme: const AppBarTheme(
